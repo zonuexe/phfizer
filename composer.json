@@ -1,0 +1,31 @@
+{
+    "name": "zonuexe/phfizer",
+    "type": "project",
+    "description": "Phfizer - PHP File Analyzer",
+    "license": "MPL-2.0",
+    "autoload": {
+        "psr-4": {
+            "zonuexe\\Phfizer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "zonuexe\\Phfizer\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.3",
+        "illuminate/container": "^11.3",
+        "symfony/console": "^7.0",
+        "symfony/finder": "^7.0",
+        "symfony/var-dumper": "^7.0"
+    },
+    "require-dev": {
+        "easy-cs/easy-cs": "^12.0",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^11.1"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -1,0 +1,11 @@
+includes:
+	- phpstan-baseline.neon
+parameters:
+	level: max
+	reportUnmatchedIgnoredErrors: false
+	inferPrivatePropertyTypeFromConstructor: true
+	bootstrapFiles:
+		- vendor/symplify/easy-coding-standard/vendor/autoload.php
+	paths:
+		- src/
+		- tests/
