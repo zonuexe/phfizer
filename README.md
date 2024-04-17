@@ -1,5 +1,9 @@
 # Phfizer - PHP File Analyzer
 
+> [!WARNING]
+> This tool is in the early stages of development and only the PSR-1 checker has been implemented.
+> All features and interfaces are subject to change without notice.
+
 ## How to use
 
 ```php
