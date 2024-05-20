@@ -63,10 +63,8 @@ readonly class Psr1Analyzer
                 $declarations[] = $nodeName;
             } elseif ($stmt instanceof Stmt\If_) {
                 [$insideDeclarations, $insideSideEffects] = $this->parseSideEffects($stmt->stmts);
-
-                if (count($insideSideEffects) === 0) {
-                    $declarations = array_merge($declarations, $insideDeclarations);
-                }
+                $declarations = array_merge($declarations, $insideDeclarations);
+                $sideEffects = array_merge($sideEffects, $insideSideEffects);
             } else {
                 $sideEffects[] = $nodeName;
             }
