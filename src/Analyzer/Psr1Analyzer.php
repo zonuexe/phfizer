@@ -40,6 +40,7 @@ readonly class Psr1Analyzer
             $nodeName = $stmt::class;
             if ($stmt instanceof Stmt\Use_
                 || $stmt instanceof Stmt\Return_
+                || $stmt instanceof Stmt\Nop
             ) {
                 continue;
             }
