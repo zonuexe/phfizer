@@ -29,7 +29,7 @@ readonly class Psr1TsvPrinter
                 $result->name,
                 implode(',', array_map(static fn ($violation) => $violation->name, $result->violations)),
             ];
-            fputcsv($fp, $row, "\t");
+            fputcsv($fp, $row, "\t", '"', '');
         }
 
         rewind($fp);
