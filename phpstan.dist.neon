@@ -9,3 +9,5 @@ parameters:
 	paths:
 		- src/
 		- tests/
+	excludePaths:
+		- tests/Analyzer/data/

@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$filename of function fopen expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Command/AnalyzeCommand.php
