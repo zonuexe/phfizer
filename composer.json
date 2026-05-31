@@ -27,8 +27,7 @@
         "symplify/easy-coding-standard": "^12.5"
     },
     "bin": [
-        "bin/phfizer",
-        "bin/phfizer.php"
+        "bin/phfizer"
     ],
     "config": {
         "sort-packages": true
