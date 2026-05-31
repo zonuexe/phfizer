@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
+use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
@@ -29,5 +30,6 @@ return ECSConfig::configure()
         comments: true,
     )
     ->withSkip([
+        NotOperatorWithSuccessorSpaceFixer::class,
         UnaryOperatorSpacesFixer::class,
     ]);
