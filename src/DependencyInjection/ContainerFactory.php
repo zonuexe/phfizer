@@ -14,8 +14,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use zonuexe\Phfizer\Cache\ResultCacheFactory;
 use zonuexe\Phfizer\Command\AnalyzeCommand;
 use function method_exists;
+use function sprintf;
 use function sys_get_temp_dir;
-use const DIRECTORY_SEPARATOR;
 
 final class ContainerFactory
 {
@@ -31,6 +31,10 @@ final class ContainerFactory
 
         $container->singleton(Parser::class, static function () {
             return (new ParserFactory())->createForNewestSupportedVersion();
+        });
+
+        $container->singleton(ResultCacheFactory::class, static function (): ResultCacheFactory {
+            return new ResultCacheFactory(sprintf('%s/phfizer', sys_get_temp_dir()));
         });
 
         $container->singleton(Application::class, static function (Container $container) {
