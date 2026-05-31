@@ -11,6 +11,23 @@
 tests/Analyzer/data/mixed-sideeffects/mixed-function.php	MIXED_SIDE_EFFECTS
 ```
 
+## Parallel processing
+
+Files are analyzed in parallel by splitting them across worker subprocesses, one
+batch per CPU thread. The main process spawns the workers, which each emit their
+results as ND-JSON, and the main process aggregates them. Output is identical to a
+sequential run.
+
+| Option | Description |
+| --- | --- |
+| `--jobs=N`, `-j N` | Number of parallel jobs (`0` = auto-detect CPU threads, the default). |
+| `--no-parallel` | Analyze sequentially in a single process. |
+
+```php
+% ./bin/phfizer analyze -j 8 -- src/ tests/
+% ./bin/phfizer analyze --no-parallel -- src/ tests/
+```
+
 ## Caching
 
 Analysis results are cached by the hash of each file's contents, so re-running

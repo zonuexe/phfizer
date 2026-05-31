@@ -112,7 +112,7 @@ final class FileResultCache implements ResultCache
 
             $violations = [];
             foreach ($names as $name) {
-                $violation = is_string($name) ? self::violationFromName($name) : null;
+                $violation = is_string($name) ? Psr1Violation::tryFromName($name) : null;
                 if ($violation !== null) {
                     $violations[] = $violation;
                 }
@@ -122,16 +122,5 @@ final class FileResultCache implements ResultCache
         }
 
         return $entries;
-    }
-
-    private static function violationFromName(string $name): ?Psr1Violation
-    {
-        foreach (Psr1Violation::cases() as $case) {
-            if ($case->name === $name) {
-                return $case;
-            }
-        }
-
-        return null;
     }
 }
