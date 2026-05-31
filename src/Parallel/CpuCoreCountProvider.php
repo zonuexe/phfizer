@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace zonuexe\Phfizer\Parallel;
 
 use function function_exists;
+use function implode;
 use function is_string;
 use function shell_exec;
+use function sprintf;
 use function trim;
 
 /**
@@ -15,14 +17,28 @@ use function trim;
  */
 final class CpuCoreCountProvider
 {
+    /**
+     * Maps the binary to probe (key) to its arguments (value). The first binary
+     * that exists and returns a positive integer wins. `nproc` covers Linux,
+     * `sysctl` covers macOS/BSD.
+     */
+    private const COMMANDS = [
+        'nproc' => [],
+        'sysctl' => ['-n', 'hw.ncpu'],
+    ];
+
     public function provide(): int
     {
         if (!function_exists('shell_exec')) {
             return 1;
         }
 
-        foreach (['nproc', 'sysctl -n hw.ncpu'] as $command) {
-            $output = shell_exec($command);
+        foreach (self::COMMANDS as $binary => $arguments) {
+            if (!$this->isAvailable($binary)) {
+                continue;
+            }
+
+            $output = shell_exec(implode(' ', [$binary, ...$arguments]));
             if (!is_string($output)) {
                 continue;
             }
@@ -34,5 +50,12 @@ final class CpuCoreCountProvider
         }
 
         return 1;
+    }
+
+    private function isAvailable(string $binary): bool
+    {
+        $found = shell_exec(sprintf('command -v %s 2>/dev/null', $binary));
+
+        return is_string($found) && trim($found) !== '';
     }
 }
