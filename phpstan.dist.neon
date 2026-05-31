@@ -4,6 +4,7 @@ parameters:
 	level: max
 	reportUnmatchedIgnoredErrors: false
 	inferPrivatePropertyTypeFromConstructor: true
+	treatPhpDocTypesAsCertain: false
 	bootstrapFiles:
 		- vendor/symplify/easy-coding-standard/vendor/autoload.php
 	paths:
