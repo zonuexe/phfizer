@@ -6,8 +6,23 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use zonuexe\Phfizer\DependencyInjection\ContainerFactory;
 
+$candidates = [];
+
+// Composer (>=2.2) sets this global in the generated bin proxy and points to the
+// autoloader of the project that requires this package. Prefer it so that the
+// classloader is resolved correctly regardless of the vendor-dir name or whether
+// the package is installed via a symlinked `path` repository.
+if (isset($GLOBALS['_composer_autoload_path'])) {
+    $candidates[] = $GLOBALS['_composer_autoload_path'];
+}
+
+// Fallbacks for direct execution (running from this repository checkout, or older
+// Composer versions that do not provide the global above).
+$candidates[] = __DIR__ . '/../vendor/autoload.php';
+$candidates[] = __DIR__ . '/../../../autoload.php';
+
 $found = null;
-foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php'] as $path) {
+foreach ($candidates as $path) {
     if (file_exists($path)) {
         $found = realpath($path);
         break;
