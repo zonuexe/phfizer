@@ -11,8 +11,11 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use zonuexe\Phfizer\Cache\ResultCacheFactory;
 use zonuexe\Phfizer\Command\AnalyzeCommand;
 use function method_exists;
+use function sys_get_temp_dir;
+use const DIRECTORY_SEPARATOR;
 
 final class ContainerFactory
 {
@@ -36,7 +39,7 @@ final class ContainerFactory
                 version: '0.0.1',
             );
             $app->setDefaultCommand('analyze');
-            if (method_exists($app, 'add')) {
+            if (method_exists($app, 'add')) { // @phpstan-ignore function.impossibleType
                 $app->add($container->make(AnalyzeCommand::class));
             } else {
                 $app->addCommand($container->make(AnalyzeCommand::class));
