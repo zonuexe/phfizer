@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
+use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
@@ -20,6 +21,9 @@ return ECSConfig::configure()
         'const' => 'single',
         'method' => 'single',
         'property' => 'single',
+    ])
+    ->withConfiguredRule(OrderedImportsFixer::class, [
+        'imports_order' => ['class', 'function', 'const'],
     ])
     ->withPreparedSets(
         psr12: true,
