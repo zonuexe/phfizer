@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use zonuexe\Phfizer\DependencyInjection\ContainerFactory;
-use function filter_var;
 
 $candidates = [];
 
@@ -13,7 +12,7 @@ $candidates = [];
 // autoloader of the project that requires this package. Prefer it so that the
 // classloader is resolved correctly regardless of the vendor-dir name or whether
 // the package is installed via a symlinked `path` repository.
-$autoload_path = filter_var($GLOBALS['_composer_autoload_path'] ?? false);
+$autoload_path = filter_var($GLOBALS['_composer_autoload_path'] ?? false, FILTER_UNSAFE_RAW);
 if ($autoload_path !== false) {
     $candidates[] = $autoload_path;
 }

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use zonuexe\Phfizer\Command\AnalyzeCommand;
+use function method_exists;
 
 final class ContainerFactory
 {
@@ -35,7 +36,11 @@ final class ContainerFactory
                 version: '0.0.1',
             );
             $app->setDefaultCommand('analyze');
-            $app->add($container->make(AnalyzeCommand::class));
+            if (method_exists($app, 'add')) {
+                $app->add($container->make(AnalyzeCommand::class));
+            } else {
+                $app->addCommand($container->make(AnalyzeCommand::class));
+            }
 
             return $app;
         });
